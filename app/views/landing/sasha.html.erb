@@ -1,0 +1,66 @@
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Cinzel:wght@400;600&display=swap');
+  
+  body {
+    background: linear-gradient(135deg, #f5e6d3 0%, #e8d5b7 100%);
+    font-family: 'Playfair Display', serif;
+    padding: 40px 20px;
+  }
+  
+  h1 {
+    font-family: 'Cinzel', serif;
+    font-size: 3.5em;
+    font-weight: 600;
+    color: #8b6f47;
+    text-align: center;
+    text-shadow: 
+      3px 3px 0px #6b5535,
+      6px 6px 10px rgba(0, 0, 0, 0.3),
+      0 0 20px rgba(139, 111, 71, 0.2);
+    letter-spacing: 0.1em;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    position: relative;
+    display: inline-block;
+    width: 100%;
+  }
+  
+  h1::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    height: 2px;
+    background: linear-gradient(to right, transparent, #8b6f47, transparent);
+  }
+  
+  h1::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    height: 2px;
+    background: linear-gradient(to right, transparent, #8b6f47, transparent);
+  }
+  
+  p {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8em;
+    color: #6b5535;
+    text-align: center;
+    text-shadow: 
+      2px 2px 4px rgba(0, 0, 0, 0.2),
+      0 0 10px rgba(139, 111, 71, 0.15);
+    letter-spacing: 0.05em;
+    line-height: 1.6;
+    font-style: italic;
+    margin-top: 20px;
+  }
+</style>
+
+<h1>Привет Саша</h1>
+<p>Работает!!!!!!!</p>
