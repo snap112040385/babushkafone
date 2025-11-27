@@ -1,449 +1,582 @@
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Clash+Display:wght@500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
-  * {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  :root {
+    --bg: #03010b;
+    --bg-alt: #0b0417;
+    --ink: #f6f3ff;
+    --muted: rgba(246, 243, 255, 0.7);
+    --accent: #fdbb2d;
+    --accent-2: #7efaff;
+    --card: rgba(9, 6, 20, 0.85);
+    --card-light: rgba(255, 255, 255, 0.08);
+    --border: rgba(255, 255, 255, 0.2);
   }
 
-  .pricing-frame {
-    padding: clamp(2rem, 4vw, 3.5rem);
-    border-radius: 1.5rem;
+  .landing-looser,
+  .landing-looser * {
+    box-sizing: border-box;
+    font-family: 'Space Grotesk', 'Clash Display', sans-serif;
   }
 
-  .pricing-card {
+  .landing-looser {
     position: relative;
-    padding-top: calc(clamp(2rem, 4vw, 3.5rem) + 2rem);
+    overflow: hidden;
+    background: radial-gradient(circle at top, rgba(255, 186, 61, 0.18), transparent 40%),
+      radial-gradient(circle at 20% 20%, rgba(126, 250, 255, 0.15), transparent 45%),
+      linear-gradient(135deg, #020007 0%, #080313 45%, #05010f 100%);
+    color: var(--ink);
+    padding: 0;
   }
 
-  .pricing-frame p {
-    margin-top: 1.25rem;
-  }
-
-  .pricing-badge {
+  .landing-looser::before,
+  .landing-looser::after {
+    content: '';
     position: absolute;
-    top: 1.5rem;
-  .stat-card {
-    background: rgba(255, 255, 255, 0.12);
-    border: 2px solid rgba(255, 255, 255, 0.25);
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .landing-looser::before {
+    background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 80px 80px;
+    opacity: 0.4;
+  }
+
+  .landing-looser::after {
+    background-image: url('https://www.transparenttextures.com/patterns/dark-matter.png');
+    mix-blend-mode: screen;
+    opacity: 0.15;
+  }
+
+  .lv-shell {
+    width: min(1180px, calc(100% - 3rem));
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+  }
+
+  .lv-hero {
+    position: relative;
+    padding: clamp(4rem, 12vw, 8rem) 0 4rem;
+  }
+
+  .lv-hero__halo {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, rgba(255, 198, 92, 0.3), transparent 55%);
+    filter: blur(50px);
+    z-index: 0;
+  }
+
+  .lv-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.35rem 1.2rem;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    background: rgba(255, 255, 255, 0.06);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    color: var(--accent-2);
+    margin-bottom: 1.5rem;
+  }
+
+  .lv-title {
+    font-family: 'Clash Display', 'Space Grotesk', sans-serif;
+    font-size: clamp(3.2rem, 8vw, 6rem);
+    line-height: 1.05;
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+  }
+
+  .lv-title span {
+    color: var(--accent);
+  }
+
+  .lv-subtitle {
+    font-size: clamp(1.1rem, 2vw, 1.4rem);
+    color: var(--muted);
+    max-width: 680px;
+    margin-bottom: 2.5rem;
+  }
+
+  .lv-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 3rem;
+  }
+
+  .lv-button {
+    padding: 1rem 2.6rem;
+    border-radius: 999px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    border: 1px solid transparent;
+    transition: 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+  }
+
+  .lv-button.primary {
+    background: linear-gradient(120deg, #ffb347, #ffcc33, #ffd966);
+    color: #1b1200;
+    box-shadow: 0 20px 40px rgba(253, 187, 45, 0.4);
+  }
+
+  .lv-button.secondary {
+    border-color: rgba(255, 255, 255, 0.4);
+    color: var(--ink);
+    background: transparent;
+  }
+
+  .lv-button:hover {
+    transform: translateY(-3px);
+  }
+
+  .lv-stat-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .lv-stat-card {
+    padding: 1.75rem;
+    border-radius: 1.5rem;
+    background: var(--card);
+    border: 1px solid var(--border);
+    box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.03), 0 25px 50px rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(12px);
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .lv-stat-card:nth-child(2) {
+    animation-delay: 1.5s;
+  }
+
+  .lv-stat-value {
+    font-size: clamp(2.8rem, 5vw, 3.8rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+  }
+
+  .lv-stat-label {
+    font-size: 0.88rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .lv-section {
+    padding: clamp(4rem, 10vw, 7rem) 0;
+    position: relative;
+  }
+
+  .lv-section--light {
+    background: #f7f5ff;
+    color: #0f0720;
+  }
+
+  .lv-section__header {
+    text-align: center;
+    margin-bottom: 3.5rem;
+  }
+
+  .lv-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 1.3rem;
+    border-radius: 999px;
+    border: 1px solid currentColor;
+    font-size: 0.75rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .lv-section h2 {
+    font-family: 'Clash Display', sans-serif;
+    font-size: clamp(2.4rem, 5vw, 3.5rem);
+    margin-bottom: 1rem;
+  }
+
+  .lv-section p.lead {
+    color: var(--muted);
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  .lv-section--light p.lead {
+    color: rgba(15, 7, 32, 0.7);
+  }
+
+  .lv-problem-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.8rem;
+  }
+
+  .lv-problem-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border);
+    border-radius: 1.4rem;
+    padding: 1.8rem;
+    min-height: 280px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .lv-problem-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(145deg, rgba(255, 179, 71, 0.05), rgba(126, 250, 255, 0.02));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .lv-problem-card:hover::after {
+    opacity: 1;
+  }
+
+  .lv-problem-card strong {
+    font-size: 1.5rem;
+    color: var(--accent);
+  }
+
+  .lv-loss-callout {
+    margin-top: 3.2rem;
+    border-radius: 2rem;
+    padding: 3rem;
+    background: linear-gradient(120deg, rgba(253, 110, 80, 0.95), rgba(253, 187, 45, 0.85));
+    text-align: center;
+    color: #1c0500;
+    box-shadow: 0 25px 55px rgba(253, 164, 45, 0.35);
+  }
+
+  .lv-loss-callout h3 {
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    margin: 0.7rem 0;
+  }
+
+  .lv-solution-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .lv-solution-card {
+    background: white;
     border-radius: 1.5rem;
     padding: 2rem;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-    backdrop-filter: blur(20px);
-    transition: all 0.3s ease;
+    box-shadow: 0 25px 65px rgba(10, 9, 30, 0.12);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
   }
 
-  .stat-card:hover {
-    background: rgba(255, 255, 255, 0.18);
-    border-color: rgba(255, 255, 255, 0.4);
-    transform: translateY(-4px);
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
-  }
-
-  .stat-value {
-    font-size: 3.5rem;
-    font-weight: 900;
-    letter-spacing: -0.02em;
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-  }
-
-  .stat-label {
-    color: #ffffff;
+  .lv-solution-card h3 {
+    font-size: 1.2rem;
     font-weight: 600;
-    font-size: 1rem;
-    letter-spacing: 0.02em;
-    opacity: 0.95;
   }
+
+  .lv-solution-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    color: rgba(15, 7, 32, 0.75);
+  }
+
+  .lv-pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+  }
+
+  .lv-price-card {
+    background: var(--card);
+    border-radius: 2rem;
+    padding: 3rem 2.5rem;
+    border: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    min-height: 520px;
+  }
+
+  .lv-price-card--accent {
+    background: linear-gradient(140deg, rgba(255, 255, 255, 0.15), rgba(255, 204, 48, 0.12));
+    border-color: rgba(255, 204, 72, 0.6);
+    box-shadow: 0 30px 80px rgba(255, 204, 72, 0.25);
+  }
+
+  .lv-badge {
+    position: absolute;
+    top: 1.5rem;
     left: 50%;
     transform: translateX(-50%);
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.5rem 1.5rem;
+    padding: 0.6rem 1.6rem;
     border-radius: 999px;
+    border: 1px solid currentColor;
+    font-size: 0.8rem;
+    backdrop-filter: blur(6px);
+  }
+
+  .lv-price-card h3 {
+    margin-top: 3.5rem;
+    font-size: 2.2rem;
+    letter-spacing: 0.08em;
+  }
+
+  .lv-price-card .price {
+    font-size: clamp(2.6rem, 5vw, 3.2rem);
     font-weight: 700;
-    font-size: 0.95rem;
-    letter-spacing: 0.03em;
-    text-transform: uppercase;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  }
+
+  .lv-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .lv-list li {
+    display: flex;
+    gap: 0.6rem;
+    align-items: center;
+  }
+
+  .lv-list svg {
+    width: 18px;
+    height: 18px;
+    color: var(--accent-2);
+  }
+
+  .lv-cta {
+    margin-top: 4rem;
+    border-radius: 2rem;
+    background: linear-gradient(120deg, #6b46ff, #ff5c8d, #ffba2d);
+    padding: clamp(2.5rem, 6vw, 4rem);
+    text-align: center;
+    color: #fffaf2;
+    box-shadow: 0 25px 70px rgba(255, 92, 141, 0.35);
+  }
+
+  .lv-contact {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .lv-contact a {
+    padding: 0.9rem 1.8rem;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    color: inherit;
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .lv-footer {
+    padding: 2.5rem 0 4rem;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.55);
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  @media (max-width: 640px) {
+    .lv-button {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .lv-price-card {
+      padding: 2.5rem 1.75rem;
+    }
   }
 </style>
 
-<!-- Hero Section -->
-<header class="relative overflow-hidden bg-gradient-to-br from-indigo-900 via-purple-900 to-indigo-800">
-  <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=\"30\" height=\"30\" viewBox=\"0 0 30 30\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cpath d=\"M1.22676 0C1.91374 0 2.45351 0.539773 2.45351 1.22676C2.45351 1.91374 1.91374 2.45351 1.22676 2.45351C0.539773 2.45351 0 1.91374 0 1.22676C0 0.539773 0.539773 0 1.22676 0Z\" fill=\"white\" fill-opacity=\"0.07\"%3E%3C/path%3E%3C/svg%3E')] opacity-40"></div>
-
-  <div class="relative z-10 px-6 py-20 lg:py-32 lg:px-8">
-    <div class="mx-auto max-w-7xl">
-      <div class="text-center">
-        <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur px-4 py-2 rounded-full mb-6">
-          <span class="w-2 h-2 bg-orange-400 rounded-full animate-pulse"></span>
-          <span class="text-white/90 text-sm font-medium">ЦИФРОВАЯ ТРАНСФОРМАЦИЯ ФИТНЕС-КЛУБОВ</span>
-        </div>
-
-        <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight mb-6">
-          Превращаем Фитнес-Клуб<br>
-          <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 to-orange-400">в цифровую платформу</span>
-        </h1>
-
-        <p class="text-xl text-white/80 mb-8 max-w-2xl mx-auto">
-          Операционная система для региональных сетей фитнес-клубов.
-          <span class="text-white font-semibold">От 5,000 ₽/клуб</span> — превращаем расходы в доходы.
-        </p>
-
-        <div class="flex flex-col sm:flex-row gap-4 justify-center mb-16">
-          <a href="#pricing" class="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-amber-400 to-orange-500 text-gray-900 px-8 py-4 rounded-full font-bold text-lg hover:from-amber-300 hover:to-orange-400 transition shadow-xl shadow-orange-500/30">
-            Узнать цены →
-          </a>
-          <a href="#solution" class="inline-flex items-center justify-center gap-2 bg-white/10 backdrop-blur text-white px-8 py-4 rounded-full font-semibold hover:bg-white/20 transition">
-            Как это работает
-          </a>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-          <div class="stat-card">
-            <div class="stat-value text-white mb-2">95К ₽</div>
-            <div class="stat-label">Потери без нас / месяц</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-value text-white mb-2">100%</div>
-            <div class="stat-label">Автоматизация рутины</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-value text-white mb-2">7 дней</div>
-            <div class="stat-label">До запуска</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white to-transparent"></div>
-</header>
-
-<!-- Problems Section -->
-<section class="py-20 px-6 lg:px-8 bg-white">
-  <div class="mx-auto max-w-7xl">
-    <div class="text-center mb-16">
-      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-        Знакомые проблемы?
-      </h2>
-      <p class="text-xl text-gray-600 max-w-2xl mx-auto">
-        Региональный фитнес-бизнес прибылен на бумаге, но тонет в операционке
+<div class="landing-looser">
+  <div class="lv-hero">
+    <div class="lv-hero__halo"></div>
+    <div class="lv-shell">
+      <p class="lv-eyebrow">FITBOT • DIGITAL OPS</p>
+      <h1 class="lv-title">
+        Превращаем фитнес-клуб <span>в прибыльную систему</span>
+      </h1>
+      <p class="lv-subtitle">
+        Автоматизируем вход, оплату, коммуникации и сервис через Telegram. Администратор больше не выдаёт ключи — он продаёт, а сеть растёт.
       </p>
-    </div>
-
-    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-      <div class="bg-gradient-to-br from-red-50 to-orange-50 rounded-2xl p-8 border border-red-100">
-        <div class="w-14 h-14 bg-red-100 rounded-xl flex items-center justify-center mb-6">
-          <span class="text-3xl">⚠️</span>
-        </div>
-        <h3 class="text-xl font-bold text-gray-900 mb-3">Администратор — "Выдавальщик Ключей"</h3>
-        <p class="text-gray-600 mb-6">
-          В час пик (18:00–20:00) администратор превращается в робота: выдает ключи, отвечает на звонки "до скольки работаете?". Продажи встают.
-        </p>
-        <div class="text-2xl font-black text-red-600">-30,000 ₽</div>
-        <div class="text-red-700 text-sm">упущенные продажи / мес</div>
+      <div class="lv-buttons">
+        <a class="lv-button primary" href="#pricing">Увидеть ROI</a>
+        <a class="lv-button secondary" href="#solution">Смотреть стек</a>
       </div>
-
-      <div class="bg-gradient-to-br from-orange-50 to-amber-50 rounded-2xl p-8 border border-orange-100">
-        <div class="w-14 h-14 bg-orange-100 rounded-xl flex items-center justify-center mb-6">
-          <span class="text-3xl">💸</span>
-        </div>
-        <h3 class="text-xl font-bold text-gray-900 mb-3">"Черная Дыра" Коммуникаций</h3>
-        <p class="text-gray-600 mb-6">
-          Клубы тратят 10–15 тыс. ₽/мес на SMS, которые никто не читает. Мобильные приложения удаляются через неделю.
-        </p>
-        <div class="text-2xl font-black text-orange-600">-15,000 ₽</div>
-        <div class="text-orange-700 text-sm">прямой убыток на SMS / мес</div>
-      </div>
-
-      <div class="bg-gradient-to-br from-amber-50 to-yellow-50 rounded-2xl p-8 border border-amber-100">
-        <div class="w-14 h-14 bg-amber-100 rounded-xl flex items-center justify-center mb-6">
-          <span class="text-3xl">👻</span>
-        </div>
-        <h3 class="text-xl font-bold text-gray-900 mb-3">"Слепой" Сервис и Тихий Отток</h3>
-        <p class="text-gray-600 mb-6">
-          Клиент видит грязь в душе или сломанный тренажер, но молчит. Негатив копится — клиент уходит к федералам.
-        </p>
-        <div class="text-2xl font-black text-yellow-600">-50,000 ₽</div>
-        <div class="text-yellow-700 text-sm">из-за плохого сервиса / мес</div>
-      </div>
-    </div>
-
-    <div class="mt-16 bg-gradient-to-r from-red-600 to-orange-600 rounded-3xl p-12 text-center text-white shadow-2xl max-w-4xl mx-auto">
-      <p class="text-xl mb-4 opacity-90">Суммарные потери без FitBot</p>
-      <p class="text-7xl font-black mb-4">95,000 ₽</p>
-      <p class="text-2xl font-bold opacity-90">ЕЖЕМЕСЯЧНО</p>
-    </div>
-  </div>
-</section>
-
-<!-- Solutions Section -->
-<section id="solution" class="py-20 px-6 lg:px-8 bg-gray-50">
-  <div class="mx-auto max-w-7xl">
-    <div class="text-center mb-16">
-      <div class="inline-flex items-center gap-2 bg-emerald-100 text-emerald-700 px-4 py-2 rounded-full text-sm font-medium mb-4">
-        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-          <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-        </svg>
-        Решение
-      </div>
-      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-        FitBot — ваша операционная система
-      </h2>
-      <p class="text-xl text-gray-600 max-w-2xl mx-auto">
-        Забираем 100% рутины и превращаем расходы в доходы
-      </p>
-    </div>
-
-    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-      <div class="bg-white rounded-2xl p-6 shadow-sm hover:shadow-lg transition">
-        <div class="w-12 h-12 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-xl flex items-center justify-center mb-4">
-          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-          </svg>
-        </div>
-        <h3 class="text-lg font-bold text-gray-900 mb-2">Автоматизация 24/7</h3>
-        <p class="text-gray-600 text-sm mb-4">FitBot забирает 100% рутины. Вход, оплата, расписание — всё в телефоне клиента.</p>
-        <ul class="space-y-2 text-sm text-gray-600">
-          <li class="flex items-center gap-2">
-            <span class="text-emerald-600">→</span>
-            <span>Цифровой пропуск в Telegram</span>
-          </li>
-          <li class="flex items-center gap-2">
-            <span class="text-emerald-600">→</span>
-            <span>Онлайн-оплата в 2 клика</span>
-          </li>
-          <li class="flex items-center gap-2">
-            <span class="text-emerald-600">→</span>
-            <span>Автозапись на тренировки</span>
-          </li>
-        </ul>
-      </div>
-
-      <div class="bg-white rounded-2xl p-6 shadow-sm hover:shadow-lg transition">
-        <div class="w-12 h-12 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-xl flex items-center justify-center mb-4">
-          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-          </svg>
-        </div>
-        <h3 class="text-lg font-bold text-gray-900 mb-2">Экономия на Связи</h3>
-        <p class="text-gray-600 text-sm mb-4">Переводим всё в Telegram. Это канал, который клиент не может удалить.</p>
-        <ul class="space-y-2 text-sm text-gray-600">
-          <li class="flex items-center gap-2">
-            <span class="text-cyan-600">→</span>
-            <span>Обнуление расходов на SMS</span>
-          </li>
-          <li class="flex items-center gap-2">
-            <span class="text-cyan-600">→</span>
-            <span>Прямые рассылки клиентам</span>
-          </li>
-          <li class="flex items-center gap-2">
-            <span class="text-cyan-600">→</span>
-            <span>100% доставляемость</span>
-          </li>
-        </ul>
-      </div>
-
-      <div class="bg-white rounded-2xl p-6 shadow-sm hover:shadow-lg transition">
-        <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-600 rounded-xl flex items-center justify-center mb-4">
-          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
-          </svg>
-        </div>
-        <h3 class="text-lg font-bold text-gray-900 mb-2">Канал Обратной Связи</h3>
-        <p class="text-gray-600 text-sm mb-4">Жалоба на грязь уходит уборщице, на тренажер — технику, благодарность — в маркетинг.</p>
-        <ul class="space-y-2 text-sm text-gray-600">
-          <li class="flex items-center gap-2">
-            <span class="text-purple-600">→</span>
-            <span>Обратная связь 24/7</span>
-          </li>
-          <li class="flex items-center gap-2">
-            <span class="text-purple-600">→</span>
-            <span>Автоматическая маршрутизация</span>
-          </li>
-          <li class="flex items-center gap-2">
-            <span class="text-purple-600">→</span>
-            <span>Предотвращение оттока</span>
-          </li>
-        </ul>
+      <div class="lv-stat-row">
+        <article class="lv-stat-card">
+          <div class="lv-stat-value">95К ₽</div>
+          <p class="lv-stat-label">Потери без нас / месяц</p>
+        </article>
+        <article class="lv-stat-card">
+          <div class="lv-stat-value">100%</div>
+          <p class="lv-stat-label">Автоматизация рутины</p>
+        </article>
+        <article class="lv-stat-card">
+          <div class="lv-stat-value">7 дней</div>
+          <p class="lv-stat-label">До запуска бота</p>
+        </article>
       </div>
     </div>
   </div>
-</section>
 
-<!-- Pricing Section -->
-<section id="pricing" class="py-20 px-6 lg:px-8 bg-gradient-to-br from-gray-900 via-indigo-900 to-purple-900">
-  <div class="mx-auto max-w-7xl">
-    <div class="text-center mb-16">
-      <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">
-        Простые и честные цены
-      </h2>
-      <p class="text-xl text-white/70">
-        Мы показываем не сколько вы потратите, а сколько перестанете терять с первого дня
-      </p>
-    </div>
-
-    <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-      <div class="bg-white rounded-3xl shadow-2xl pricing-frame pricing-card">
-        <div class="pricing-badge bg-emerald-100 text-emerald-700">
-          <span class="text-xl">🚀</span>
-          <span>Популярный</span>
-        </div>
-        <h3 class="text-4xl font-black text-gray-900 mb-2">FitBot START</h3>
-        <div class="flex items-baseline gap-2 mb-6">
-          <span class="text-5xl font-black text-gray-900">от 5,000 ₽</span>
-          <span class="text-gray-600">/ клуб</span>
-        </div>
-
-        <p class="text-gray-700 mb-8 font-semibold">
-          Для кого: Чтобы закрыть базовые дыры и перестать тратить деньги
-        </p>
-
-        <ul class="space-y-4 mb-10">
-          <li class="flex items-center gap-3 text-gray-700">
-            <svg class="w-5 h-5 text-emerald-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-            </svg>
-            <span>Полная автоматизация клиента (Цифровая карта/Пропуск)</span>
-          </li>
-          <li class="flex items-center gap-3 text-gray-700">
-            <svg class="w-5 h-5 text-emerald-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-            </svg>
-            <span>Онлайн-оплата и Авто-напоминания</span>
-          </li>
-          <li class="flex items-center gap-3 text-gray-700">
-            <svg class="w-5 h-5 text-emerald-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-            </svg>
-            <span>Актуальное расписание и Запись</span>
-          </li>
-          <li class="flex items-center gap-3 text-gray-700">
-            <svg class="w-5 h-5 text-emerald-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-            </svg>
-            <span>Канал обратной связи</span>
-          </li>
-        </ul>
-
-        <div class="bg-emerald-50 rounded-xl p-4 mb-8">
-          <div class="text-emerald-900 font-black text-xl">Экономия: ~15,000 ₽/мес</div>
-        </div>
-
-        <a href="#contact" class="block w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white text-center px-8 py-4 rounded-xl font-bold text-lg transition shadow-lg shadow-indigo-500/30">
-          Начать экономить
-        </a>
+  <section class="lv-section" id="problems">
+    <div class="lv-shell">
+      <div class="lv-section__header">
+        <p class="lv-tag">Проблемы</p>
+        <h2>Региональные сети теряют деньги в тишине</h2>
+        <p class="lead">Бумагой клуб прибыльный, но реальность — хаос админа, дорогие SMS и клиенты, которые молча уходят.</p>
       </div>
-
-      <div class="bg-white rounded-3xl shadow-2xl shadow-indigo-500/20 pricing-frame pricing-card">
-        <div class="pricing-badge text-gray-900 bg-gradient-to-r from-amber-400 to-orange-500">
-          <span class="text-xl">🔥</span>
-          <span>Для роста</span>
-        </div>
-        <h3 class="text-4xl font-black text-gray-900 mb-2">FitBot PRO</h3>
-        <div class="flex items-baseline gap-2 mb-6">
-          <span class="text-5xl font-black text-gray-900">+10,000 ₽</span>
-          <span class="text-gray-600">/ сеть</span>
-        </div>
-
-        <p class="text-gray-700 mb-8 font-semibold">
-          Для кого: Для активного маркетинга и управления базой
-        </p>
-
-        <ul class="space-y-4 mb-10">
-          <li class="flex items-center gap-3 text-gray-700">
-            <svg class="w-5 h-5 text-indigo-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-            </svg>
-            <span>Всё из START +</span>
-          </li>
-          <li class="flex items-center gap-3 text-gray-700">
-            <svg class="w-5 h-5 text-indigo-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-            </svg>
-            <span>Инструменты для администратора и РОПа</span>
-          </li>
-          <li class="flex items-center gap-3 text-gray-700">
-            <svg class="w-5 h-5 text-indigo-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-            </svg>
-            <span>Прямые рассылки в бот (сегментированные)</span>
-          </li>
-          <li class="flex items-center gap-3 text-gray-700">
-            <svg class="w-5 h-5 text-indigo-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-            </svg>
-            <span>"Тихая" нативная реклама акций</span>
-          </li>
-          <li class="flex items-center gap-3 text-gray-700">
-            <svg class="w-5 h-5 text-indigo-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-            </svg>
-            <span>Прямая переписка с клиентами и аналитика</span>
-          </li>
-        </ul>
-
-        <div class="bg-indigo-50 rounded-xl p-4 mb-8">
-          <div class="text-indigo-900 font-black text-xl">Экономия + Дополнительный доход</div>
-        </div>
-
-        <a href="#contact" class="block w-full bg-gradient-to-r from-amber-400 to-orange-500 hover:from-amber-300 hover:to-orange-400 text-gray-900 text-center px-8 py-4 rounded-xl font-bold text-lg transition shadow-xl shadow-orange-500/30">
-          Увеличить прибыль
-        </a>
+      <div class="lv-problem-grid">
+        <article class="lv-problem-card">
+          <strong>Админ = выдаёт ключи</strong>
+          <p>В пике 18:00–20:00 стойка работает как кол-центр. Продажи стоят, заявки не успевают.</p>
+          <p>−30 000 ₽ ежемесячно</p>
+        </article>
+        <article class="lv-problem-card">
+          <strong>Чёрная дыра коммуникаций</strong>
+          <p>SMS на 15 тыс ₽ читают единицы. Приложение удаляется на второй день. Клиент не слышит клуб.</p>
+          <p>−15 000 ₽ прямого бюджета</p>
+        </article>
+        <article class="lv-problem-card">
+          <strong>Тихий отток</strong>
+          <p>Поломка тренажёра или грязная душевые — клиент не жалуется, а просто уходит к федералам.</p>
+          <p>−50 000 ₽ из-за сервиса</p>
+        </article>
+      </div>
+      <div class="lv-loss-callout">
+        <p>Суммарный прогар без FitBot</p>
+        <h3>95 000 ₽ в месяц</h3>
+        <p>Вы платите не нам — вы платите за хаос.</p>
       </div>
     </div>
+  </section>
 
-    <div class="mt-12 max-w-3xl mx-auto bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl pricing-frame text-center">
-      <h4 class="text-3xl font-black text-white mb-4">Интеграция (Разово)</h4>
-      <p class="text-white/80 mb-6 text-lg font-medium">Бесшовная связка с 1С:Фитнес или другой CRM</p>
-      <p class="text-5xl font-black text-white">15,000 ₽ <span class="text-xl font-normal text-white/70">/ клуб</span></p>
-    </div>
-  </div>
-</section>
-
-<!-- CTA Section -->
-<section id="contact" class="py-20 px-6 lg:px-8 bg-gradient-to-br from-indigo-600 to-purple-700">
-  <div class="mx-auto max-w-4xl text-center">
-    <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
-      Готовы перестать терять деньги?
-    </h2>
-    <p class="text-xl text-white/80 mb-8 max-w-2xl mx-auto">
-      FitBot превращает вашего администратора из вахтера в продавца, экономит 15,000 ₽/мес на SMS и создает цифровую платформу для дополнительного заработка
-    </p>
-    <div class="flex flex-col sm:flex-row gap-4 justify-center mb-10">
-      <a href="mailto:info@fitbot.ru" class="inline-flex items-center justify-center gap-2 bg-white text-indigo-700 px-8 py-4 rounded-full font-bold text-lg hover:bg-indigo-50 transition shadow-xl">
-        info@fitbot.ru
-      </a>
-      <a href="tel:+79991234567" class="inline-flex items-center justify-center gap-2 bg-white/10 backdrop-blur text-white px-8 py-4 rounded-full font-semibold hover:bg-white/20 transition">
-        +7 (999) 123-45-67
-      </a>
-    </div>
-    <div class="flex items-center justify-center gap-6 text-white/60 text-sm">
-      <div class="flex items-center gap-2">
-        <svg class="w-5 h-5 text-emerald-400" fill="currentColor" viewBox="0 0 20 20">
-          <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-        </svg>
-        Первая консультация бесплатно
+  <section class="lv-section lv-section--light" id="solution">
+    <div class="lv-shell">
+      <div class="lv-section__header">
+        <p class="lv-tag">Решение</p>
+        <h2>FitBot — операционная система клуба</h2>
+        <p class="lead">Мы забираем 100% рутины в Telegram, где клиент точно живёт. Администратор получает данные и продаёт.</p>
       </div>
-      <div class="flex items-center gap-2">
-        <svg class="w-5 h-5 text-emerald-400" fill="currentColor" viewBox="0 0 20 20">
-          <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-        </svg>
-        Интеграция за 7 дней
+      <div class="lv-solution-grid">
+        <article class="lv-solution-card">
+          <h3>Автоматизация 24/7</h3>
+          <p>Вход, карта, оплата, записи и напоминания в одном диалоге.</p>
+          <ul>
+            <li>• Цифровой пропуск в Telegram</li>
+            <li>• Оплата в 2 клика + повтор по ссылке</li>
+            <li>• Автозапись и контроль доступов</li>
+          </ul>
+        </article>
+        <article class="lv-solution-card">
+          <h3>Экономия на связи</h3>
+          <p>SMS и приложения уходят в прошлое: Telegram-бот доставляет 100% сообщений.</p>
+          <ul>
+            <li>• 0 ₽ на рассылки</li>
+            <li>• Сегментированные промо внутри бота</li>
+            <li>• Глубокая аналитика кликов</li>
+          </ul>
+        </article>
+        <article class="lv-solution-card">
+          <h3>Обратная связь, которая работает</h3>
+          <p>Жалобы и благодарности моментально улетают нужному сотруднику.</p>
+          <ul>
+            <li>• Маршрутизация по роли</li>
+            <li>• Контроль SLA внутри Telegram</li>
+            <li>• Предотвращаем отток до того, как он случился</li>
+          </ul>
+        </article>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- Footer -->
-<footer class="py-12 px-6 lg:px-8 bg-gray-900">
-  <div class="mx-auto max-w-7xl text-center">
-    <p class="text-gray-100 text-lg font-semibold mb-2">
-      © 2025 FitBot. Операционная Система для Фитнес-Клубов
-    </p>
-    <p class="text-gray-200">
-      Превращаем статью расходов в статью дохода
-    </p>
-  </div>
-</footer>
+  <section class="lv-section" id="pricing">
+    <div class="lv-shell">
+      <div class="lv-section__header">
+        <p class="lv-tag">Цены</p>
+        <h2>Мы продаём экономию и рост</h2>
+        <p class="lead">Платите меньше, чем теряете сейчас. Настраиваем, интегрируем, сопровождаем.</p>
+      </div>
+      <div class="lv-pricing-grid">
+        <article class="lv-price-card">
+          <div class="lv-badge" style="color: var(--accent-2);">🚀 Популярный</div>
+          <h3>FitBot START</h3>
+          <p class="price">от 5 000 ₽ / клуб</p>
+          <p>Закрываем основные дыры и переводим клиентов в цифровой поток.</p>
+          <ul class="lv-list">
+            <li>✔ Цифровая карта и пропуск</li>
+            <li>✔ Онлайн-оплата + автосписания</li>
+            <li>✔ Актуальное расписание и запись</li>
+            <li>✔ Канал обратной связи</li>
+          </ul>
+          <p style="margin-top: auto; color: var(--accent); font-weight: 600;">Экономия ~15 000 ₽/мес</p>
+        </article>
+        <article class="lv-price-card lv-price-card--accent">
+          <div class="lv-badge" style="color: #1b1200; background: rgba(255, 255, 255, 0.7);">🔥 Для роста</div>
+          <h3>FitBot PRO</h3>
+          <p class="price">+10 000 ₽ / сеть</p>
+          <p>Для сетей, которые качают выручку через персональные коммуникации и аналитику.</p>
+          <ul class="lv-list">
+            <li>✔ Все из START</li>
+            <li>✔ CRM-инструменты для администратора и РОПа</li>
+            <li>✔ Сегментированные рассылки в боте</li>
+            <li>✔ Нативные продажи акций</li>
+            <li>✔ Переписка с клиентами + аналитика</li>
+          </ul>
+          <p style="margin-top: auto; color: #1b1200; font-weight: 700;">Экономия + дополнительный доход</p>
+        </article>
+      </div>
+      <div class="lv-cta" id="contact">
+        <h3>Интеграция за 7 дней · 15 000 ₽ разово / клуб</h3>
+        <p>Связываем с 1С:Фитнес или вашей CRM, настраиваем бота, обучаем персонал.</p>
+        <div class="lv-contact">
+          <a href="mailto:info@fitbot.ru">info@fitbot.ru</a>
+          <a href="tel:+79991234567">+7 (999) 123-45-67</a>
+          <a href="#hero">Запланировать созвон</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="lv-footer">
+    <div class="lv-shell">
+      <p>© 2025 FitBot — превращаем расход в доход. Интегрируем, автоматизируем, сопровождаем.</p>
+    </div>
+  </footer>
+</div>
