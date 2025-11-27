@@ -4,4 +4,7 @@ class LandingController < ApplicationController
 
   def sasha
   end
+
+  def looser_vibe_coder
+  end
 end
