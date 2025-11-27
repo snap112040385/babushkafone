@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   get "landing/index"
   get "landing/sasha"
-  get "landing/LooserVibeCoder", to: "landing#looser_vibe_coder"
+  get "landing/fitbot", to: "landing#looser_vibe_coder"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
