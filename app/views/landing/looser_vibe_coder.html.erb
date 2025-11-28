@@ -192,10 +192,11 @@
         }
 
         .hero-content {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-            max-width: 780px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            max-width: 1100px;
             margin: 0 auto;
         }
 
@@ -210,6 +211,14 @@
             margin-bottom: 2rem;
             letter-spacing: 0.08em;
             text-transform: uppercase;
+        }
+
+        .hero-visual {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2;
         }
 
 
@@ -459,6 +468,28 @@
              text-transform: uppercase;
         }
 
+        .bot-screenshot-wrapper {
+            position: relative;
+            max-width: 360px;
+            width: 100%;
+            border-radius: 32px;
+            overflow: hidden;
+            filter: drop-shadow(0 25px 50px rgba(53, 251, 214, 0.25));
+            transition: transform 0.4s ease;
+        }
+
+        .bot-screenshot-wrapper:hover {
+            transform: translateY(-8px) scale(1.02);
+        }
+
+        .bot-screenshot-wrapper img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 32px;
+            margin-top: -40px;
+        }
+
         /* --- Адаптивность --- */
         @media (max-width: 968px) {
             .hero-content {
@@ -492,6 +523,11 @@
                 <h2><span class="highlight">FitBot</span> — операционная система для фитнес-клуба в Telegram, которая обнуляет расходы на SMS, забирает 100% рутины и работает как AI-помощник 24/7.</h2>
                 <a href="#final-cta" class="btn">🚀 Рассчитать экономию для моего клуба</a>
                 <span class="cta-subtext">Окупается с первого месяца только на отмене SMS-рассылок</span>
+            </div>
+            <div class="hero-visual">
+                <div class="bot-screenshot-wrapper">
+                    <%= image_tag "bot_screenshot.png", alt: "FitBot Assistant Interface" %>
+                </div>
             </div>
         </div>
     </section>
