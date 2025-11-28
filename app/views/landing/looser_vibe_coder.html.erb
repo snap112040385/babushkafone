@@ -192,10 +192,11 @@
         }
 
         .hero-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 4.5rem;
-            align-items: center;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            max-width: 780px;
+            margin: 0 auto;
         }
 
         .hero-text h1 {
@@ -203,74 +204,12 @@
         }
 
         .hero-text h2 {
-            font-size: 1.25rem;
+            font-size: 1.15rem;
             font-weight: 500;
             color: var(--text-secondary);
-            margin-bottom: 2.6rem;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-        }
-
-        .hero-visual {
-            position: relative;
-            display: flex;
-            justify-content: center;
-        }
-
-        .hero-visual::after {
-            content: "FITBOT CORE UI";
-            position: absolute;
-            top: -1.5rem;
-            right: -1.2rem;
-            font-size: 0.75rem;
-            letter-spacing: 0.4em;
-            color: rgba(255, 255, 255, 0.4);
-        }
-
-        /* Имитация телефона с интерфейсом */
-        .phone-mockup {
-            background: linear-gradient(160deg, #0c0f18, #1d2335);
-            border-radius: 38px;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            padding: 22px;
-            max-width: 360px;
-            margin: 0 auto;
-            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.65);
-            position: relative;
-        }
-        
-        .phone-mockup::before {
-            content: "";
-            position: absolute;
-            inset: 10px;
-            border-radius: 30px;
-            border: 1px dashed rgba(255, 255, 255, 0.08);
-        }
-        
-        .telegram-interface {
-             background-color: rgba(8, 11, 18, 0.9);
-             border-radius: 24px;
-             padding: 20px;
-             display: flex;
-             flex-direction: column;
-             gap: 12px;
-             border: 1px solid rgba(255, 255, 255, 0.08);
-        }
-        
-        .tg-button {
-            background-color: rgba(35, 44, 70, 0.8);
-            color: var(--accent-neon);
-            padding: 14px;
-            text-align: center;
-            border-radius: 14px;
-            font-weight: 600;
+            margin-bottom: 2rem;
             letter-spacing: 0.08em;
             text-transform: uppercase;
-            font-size: 0.9rem;
-        }
-        .tg-button.primary {
-             background: linear-gradient(120deg, var(--accent-neon), var(--accent-sun));
-             color: #050505;
         }
 
 
@@ -549,21 +488,10 @@
     <section class="hero">
         <div class="container hero-content">
             <div class="hero-text">
-                <h1>Ваш администратор — это продавец или вахтер, выдающий ключи?</h1>
-                <h2>Превращаем хаос на рецепции в системные продажи. <span class="highlight">FitBot</span> — операционная система для фитнес-клуба в Telegram, которая обнуляет расходы на SMS, забирает 100% рутины и работает как AI-помощник 24/7.</h2>
+                <h1>Превращаем хаос на рецепции в системные продажи.</h1>
+                <h2><span class="highlight">FitBot</span> — операционная система для фитнес-клуба в Telegram, которая обнуляет расходы на SMS, забирает 100% рутины и работает как AI-помощник 24/7.</h2>
                 <a href="#final-cta" class="btn">🚀 Рассчитать экономию для моего клуба</a>
                 <span class="cta-subtext">Окупается с первого месяца только на отмене SMS-рассылок</span>
-            </div>
-            <div class="hero-visual">
-                <div class="phone-mockup">
-                    <div class="telegram-interface">
-                         <div style="text-align: center; margin-bottom: 10px; font-weight: bold;">FitBot Assistant</div>
-                         <div class="tg-button primary">🚀 Открыть турникет</div>
-                         <div class="tg-button">📅 Расписание занятий</div>
-                         <div class="tg-button">💳 Продлить абонемент</div>
-                         <div class="tg-button">❓ Задать вопрос (AI)</div>
-                    </div>
-                </div>
             </div>
         </div>
     </section>
