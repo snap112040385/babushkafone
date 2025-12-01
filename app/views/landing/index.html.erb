@@ -144,10 +144,15 @@
         <a href="#faq" class="text-[#6B4226] hover:text-[#FF6B35] transition font-medium">Вопросы</a>
       </div>
       <div class="flex items-center gap-4">
-        <a href="#" class="text-[#6B4226] hover:text-[#FF6B35] transition font-medium hidden sm:block">Войти</a>
-        <a href="#" class="retro-button bg-[#FF6B35] text-white px-6 py-3 rounded-full font-bold hover:bg-[#E63946] transition shadow-xl shadow-[#FF6B35]/40">
-          Попробовать
-        </a>
+        <% if authenticated? %>
+          <%= link_to "Личный кабинет", dashboard_path, class: "text-[#6B4226] hover:text-[#FF6B35] transition font-medium hidden sm:block" %>
+          <%= button_to "Выйти", session_path, method: :delete, class: "retro-button bg-[#FF6B35] text-white px-6 py-3 rounded-full font-bold hover:bg-[#E63946] transition shadow-xl shadow-[#FF6B35]/40" %>
+        <% else %>
+          <button onclick="openLoginModal()" class="text-[#6B4226] hover:text-[#FF6B35] transition font-medium hidden sm:block">Войти</button>
+          <button onclick="openSignupModal()" class="retro-button bg-[#FF6B35] text-white px-6 py-3 rounded-full font-bold hover:bg-[#E63946] transition shadow-xl shadow-[#FF6B35]/40">
+            Попробовать
+          </button>
+        <% end %>
       </div>
     </div>
   </nav>
@@ -810,3 +815,44 @@
     </div>
   </div>
 </footer>
+
+<%# Authentication Modals %>
+<div data-login-modal>
+  <%= render "shared/login_modal" %>
+</div>
+
+<div data-signup-modal>
+  <%= render "shared/signup_modal" %>
+</div>
+
+<script>
+  function openLoginModal() {
+    const modal = document.querySelector('[data-login-modal] [data-modal-target="container"]');
+    if (modal) {
+      modal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+  }
+
+  function openSignupModal() {
+    const modal = document.querySelector('[data-signup-modal] [data-modal-target="container"]');
+    if (modal) {
+      modal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+  }
+
+  function closeAllModals() {
+    document.querySelectorAll('[data-modal-target="container"]').forEach(modal => {
+      modal.classList.add('hidden');
+    });
+    document.body.style.overflow = '';
+  }
+
+  // Allow closing modals with Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeAllModals();
+    }
+  });
+</script>
