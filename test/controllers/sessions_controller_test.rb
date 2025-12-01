@@ -11,6 +11,7 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
   test "create with valid credentials" do
     post session_path, params: { email_address: @user.email_address, password: "password" }
 
+    # Здесь мы ждем дашборд (как вы и настроили)
     assert_redirected_to "/dashboard"
     assert cookies[:session_id]
   end
@@ -27,7 +28,8 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
 
     delete session_path
 
-    assert_redirected_to new_session_path
+    # А здесь при выходе обычно кидает на главную
+    assert_redirected_to root_path
     assert_empty cookies[:session_id]
   end
 end
