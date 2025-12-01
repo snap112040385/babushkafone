@@ -1,3 +1,6 @@
+---
+alwaysApply: true
+---
 # Frontend Design Skill
 
 | name | description | license |
@@ -19,7 +22,7 @@ Before coding, understand the context and commit to a BOLD aesthetic direction:
 - **Constraints**: Technical requirements (framework, performance, accessibility)
 - **Differentiation**: "What makes this UNFORGETTABLE? What's the one thing someone will remember?"
 
-**CRITICAL**: Choose a clear conceptual direction and execute with precision. Bold maximalism and refined minimalism both workвЂ”intentionality matters most.
+**CRITICAL**: Choose a clear conceptual direction and execute with precision. Bold maximalism and refined minimalism both work—intentionality matters most.
 
 Then implement working code (HTML/CSS/JS, React, Vue, etc.) that is:
 - Production-grade and functional
@@ -31,7 +34,7 @@ Then implement working code (HTML/CSS/JS, React, Vue, etc.) that is:
 
 Focus on:
 
-- **Typography**: Choose distinctive, characterful fonts. Avoid generic options; pair compelling display fonts with refined body fonts.
+- **Typography**: Choose distinctive, characterful fonts. Avoid generic options; pair compelling display fonts with refined body fonts. If project is in russian language, use cyrillic fonts.
 - **Color & Theme**: Commit to cohesive aesthetics. Use CSS variables for consistency. Dominant colors with sharp accents outperform timid palettes.
 - **Motion**: Use animations for effects and micro-interactions. CSS-only for HTML; Motion library for React. Orchestrate page load reveals with staggered animations and scroll-triggered interactions.
 - **Spatial Composition**: Employ unexpected layouts, asymmetry, overlap, diagonal flow, grid-breaking elements, and generous or controlled negative space.
@@ -39,7 +42,7 @@ Focus on:
 
 ### What to Avoid
 
-Never default to generic AI aesthetics: overused font families (Inter, Roboto, Arial), clichГ©d color schemes (purple gradients), predictable layouts, or cookie-cutter designs lacking context-specific character.
+Never default to generic AI aesthetics: overused font families (Inter, Roboto, Arial), clichéd color schemes (purple gradients), predictable layouts, or cookie-cutter designs lacking context-specific character.
 
 Interpret creatively and make unexpected choices. Vary between light/dark themes, different fonts, different aesthetics. Never converge on common choices across generations.
 
@@ -47,8 +50,4 @@ Interpret creatively and make unexpected choices. Vary between light/dark themes
 
 "Match implementation complexity to the aesthetic vision. Maximalist designs need elaborate code with extensive animations and effects. Minimalist or refined designs need restraint, precision, and careful attention to spacing, typography, and subtle details."
 
-Remember: Claude is capable of extraordinary creative work. Don't hold backвЂ”show what can truly be created when thinking outside the box and committing fully to a distinctive vision.
-
----
-alwaysApply: true
----
+Remember: Claude is capable of extraordinary creative work. Don't hold back—show what can truly be created when thinking outside the box and committing fully to a distinctive vision.
