@@ -6,23 +6,18 @@
     <title>FitBot — Операционная система для фитнес-клуба в Telegram</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=Unbounded:wght@500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700;800;900&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --bg-main: #050607;
-            --bg-secondary: #0e0f16;
-            --bg-card: rgba(14, 20, 32, 0.85);
-            --bg-card-light: rgba(255, 255, 255, 0.04);
-            --text-primary: #f5f5f1;
-            --text-secondary: rgba(243, 243, 238, 0.75);
-            --accent-sun: #f4d35e;
-            --accent-neon: #35fbd6;
-            --accent-warm: #ff5c5c;
-            --border-color: rgba(255, 255, 255, 0.18);
-            --grid-line: rgba(255, 255, 255, 0.05);
-            --container-width: 1200px;
-            --blur: 80px;
+            --bg-dark: #0a0e1a;
+            --bg-darker: #050810;
+            --electric-blue: #00d9ff;
+            --neon-pink: #ff0080;
+            --energy-yellow: #ffed4e;
+            --power-purple: #9d4edd;
+            --text-white: #ffffff;
+            --text-gray: #b8c5d6;
         }
 
         * {
@@ -32,678 +27,764 @@
         }
 
         body {
-            font-family: 'Space Grotesk', sans-serif;
-            background: radial-gradient(circle at 10% 20%, rgba(53, 251, 214, 0.12), transparent 45%),
-                        radial-gradient(circle at 80% 0%, rgba(244, 211, 94, 0.25), transparent 50%),
-                        var(--bg-main);
-            color: var(--text-primary);
-            line-height: 1.7;
+            font-family: 'Golos Text', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-white);
             overflow-x: hidden;
-            min-height: 100vh;
-            letter-spacing: 0.01em;
+            line-height: 1.6;
         }
 
-        body::before {
-            content: "";
+        /* Animated Background Grid */
+        .animated-bg {
             position: fixed;
-            inset: 0;
-            background-image: linear-gradient(var(--grid-line) 1px, transparent 1px),
-                              linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
-            background-size: 120px 120px;
-            opacity: 0.4;
-            pointer-events: none;
-            z-index: -2;
-        }
-
-        h1, h2, h3, h4 {
-            font-family: 'Unbounded', sans-serif;
-            letter-spacing: -0.01em;
-            line-height: 1.1;
-            color: var(--text-primary);
-        }
-
-        h1 { font-size: clamp(2.8rem, 6vw, 4.6rem); }
-        h2 { font-size: clamp(2.2rem, 4vw, 3.4rem); margin-bottom: 1.5rem; }
-        h3 { font-size: 1.55rem; margin-bottom: 0.8rem; }
-
-        p {
-            color: var(--text-secondary);
-            margin-bottom: 1.4rem;
-            font-size: 1.05rem;
-        }
-
-        .container {
-            width: min(92%, var(--container-width));
-            margin: 0 auto;
-        }
-
-        section {
-            padding: clamp(4rem, 7vw, 6rem) 0;
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.6rem;
-            padding: 1.05rem 2.8rem;
-            background: linear-gradient(115deg, var(--accent-sun), var(--accent-warm), var(--accent-neon));
-            color: #0b0502;
-            font-weight: 700;
-            text-decoration: none;
-            border-radius: 999px;
-            border: none;
-            cursor: pointer;
-            transition: transform 0.25s ease, box-shadow 0.25s ease;
-            font-size: 1.05rem;
-            box-shadow: 0 20px 45px rgba(244, 211, 94, 0.35);
-        }
-
-        .btn:hover {
-            transform: translateY(-3px) scale(1.01);
-            box-shadow: 0 30px 65px rgba(244, 211, 94, 0.4);
-        }
-        
-        .btn-full {
+            top: 0;
+            left: 0;
             width: 100%;
-            text-align: center;
-        }
-
-        .cta-subtext {
-            display: block;
-            margin-top: 0.9rem;
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            letter-spacing: 0.2em;
-        }
-
-        .highlight {
-            background: linear-gradient(120deg, var(--accent-neon), var(--accent-sun));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .section-header {
-            text-align: center;
-            max-width: 780px;
-            margin: 0 auto 4rem auto;
-        }
-
-        .card {
-            background-color: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 26px;
-            padding: 2.6rem;
-            transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .card::after {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(circle at top right, rgba(244, 211, 94, 0.18), transparent 45%);
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            pointer-events: none;
-        }
-
-        .card:hover {
-            border-color: rgba(244, 211, 94, 0.7);
-            transform: translateY(-6px);
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45);
-        }
-
-        .card:hover::after {
-            opacity: 1;
-        }
-
-        /* --- 1. Hero Section --- */
-        .hero {
-            padding-top: clamp(7rem, 12vw, 9rem);
-            padding-bottom: clamp(4rem, 8vw, 6rem);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before,
-        .hero::after {
-            content: '';
-            position: absolute;
-            width: 520px;
-            height: 520px;
-            filter: blur(var(--blur));
-            opacity: 0.2;
+            height: 100%;
+            background:
+                linear-gradient(90deg, rgba(0, 217, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(rgba(0, 217, 255, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            animation: gridMove 20s linear infinite;
             z-index: -1;
         }
 
-        .hero::before {
-            top: -10%;
-            right: 10%;
-            background: var(--accent-neon);
+        @keyframes gridMove {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(60px); }
         }
 
-        .hero::after {
-            bottom: -20%;
-            left: -10%;
-            background: var(--accent-warm);
+        /* Floating Energy Particles */
+        .energy-particle {
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            background: var(--electric-blue);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+            animation: float 10s infinite ease-in-out;
+            box-shadow: 0 0 20px var(--electric-blue);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); opacity: 0; }
+            25% { opacity: 1; }
+            50% { transform: translateY(-100vh) translateX(50px); opacity: 0.8; }
+            75% { opacity: 1; }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, var(--power-purple) 0%, transparent 70%);
+            transform: translate(-50%, -50%);
+            opacity: 0.2;
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.2; }
+            50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.3; }
         }
 
         .hero-content {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 4rem;
             align-items: center;
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-
-        .hero-text h1 {
-            margin-bottom: 1.5rem;
-        }
-
-        .hero-text h2 {
-            font-size: 1.15rem;
-            font-weight: 500;
-            color: var(--text-secondary);
-            margin-bottom: 2rem;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-        }
-
-        .hero-visual {
             position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             z-index: 2;
         }
 
+        .hero-text h1 {
+            font-family: 'Manrope', sans-serif;
+            font-size: clamp(3rem, 7vw, 6rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 2rem;
+            background: linear-gradient(135deg, var(--electric-blue), var(--neon-pink), var(--energy-yellow));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 8s ease infinite;
+            background-size: 200% 200%;
+        }
 
-        /* --- 2. Pain Points Section --- */
-        .pain-section {
-            background: linear-gradient(180deg, rgba(8, 10, 16, 0.9) 0%, #050607 100%);
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .hero-text h2 {
+            font-size: clamp(1.2rem, 2vw, 1.5rem);
+            color: var(--text-gray);
+            font-weight: 500;
+            margin-bottom: 3rem;
+            line-height: 1.8;
+        }
+
+        .highlight {
+            color: var(--electric-blue);
+            font-weight: 700;
+        }
+
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.5rem 3rem;
+            background: linear-gradient(135deg, var(--neon-pink), var(--power-purple));
+            color: var(--text-white);
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 50px;
+            box-shadow: 0 10px 40px rgba(255, 0, 128, 0.4);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .cta-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 60px rgba(255, 0, 128, 0.6);
+        }
+
+        .cta-subtext {
+            display: block;
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+            color: var(--text-gray);
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+        }
+
+        /* 3D Rotating Phone */
+        .phone-showcase {
+            position: relative;
+            perspective: 1000px;
+        }
+
+        .phone-3d {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+            animation: rotate3d 20s ease-in-out infinite;
+            transform-style: preserve-3d;
+        }
+
+        @keyframes rotate3d {
+            0%, 100% { transform: rotateY(-15deg) rotateX(5deg); }
+            50% { transform: rotateY(15deg) rotateX(-5deg); }
+        }
+
+        .phone-3d img {
+            width: 100%;
+            height: auto;
+            filter: drop-shadow(0 30px 60px rgba(0, 217, 255, 0.5));
+            border-radius: 40px;
+        }
+
+        .glow-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 120%;
+            height: 120%;
+            border: 3px solid var(--electric-blue);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0.3;
+            animation: ringPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes ringPulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.3; }
+            50% { transform: translate(-50%, -50%) scale(1.1); opacity: 0.1; }
+        }
+
+        /* Section Styles */
+        section {
+            padding: 8rem 0;
             position: relative;
         }
 
-        .pain-section::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background: url("https://www.transparenttextures.com/patterns/asfalt-light.png");
-            opacity: 0.05;
-            pointer-events: none;
+        .section-header {
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto 5rem;
         }
 
-        .pain-grid {
+        .section-header h2 {
+            font-family: 'Manrope', sans-serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .section-header p {
+            font-size: 1.2rem;
+            color: var(--text-gray);
+            line-height: 1.8;
+        }
+
+        /* Cards with Hover Effects */
+        .card-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 2rem;
         }
 
-        .pain-card h3 {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1.25rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
+        .card {
+            background: linear-gradient(135deg, rgba(157, 78, 221, 0.1), rgba(0, 217, 255, 0.05));
+            border: 2px solid rgba(0, 217, 255, 0.2);
+            border-radius: 30px;
+            padding: 3rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
         }
-        
-        .result-negative {
-            margin-top: 1.5rem;
-            padding-top: 1.1rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.15);
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 217, 255, 0.15), transparent 50%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: var(--electric-blue);
+            box-shadow: 0 20px 60px rgba(0, 217, 255, 0.3);
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .card h3 {
+            font-size: 1.8rem;
             font-weight: 700;
-            color: var(--accent-warm);
+            margin-bottom: 1rem;
+            color: var(--electric-blue);
         }
 
-        /* --- 3. Benefits Section --- */
-        .benefits-section {
-            background: linear-gradient(120deg, rgba(14, 20, 32, 0.95), rgba(5, 6, 7, 0.95));
-        }
-
-        .benefits-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 1.8rem;
-        }
-
-        .benefit-card h3 {
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-            letter-spacing: 0.04em;
-        }
-
-        .check-icon {
-            color: var(--accent-neon);
-            flex-shrink: 0;
+        .card p {
+            color: var(--text-gray);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
         }
 
         .benefit-result {
-            font-weight: 600;
-            color: var(--accent-sun);
-            margin-top: 1rem;
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            background: linear-gradient(135deg, var(--neon-pink), var(--energy-yellow));
+            color: var(--bg-dark);
+            font-weight: 700;
+            border-radius: 50px;
+            font-size: 0.9rem;
+        }
+
+        /* Animated Counter */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+            margin: 4rem 0;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 4rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--electric-blue), var(--neon-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             display: block;
+            margin-bottom: 0.5rem;
         }
 
-        /* --- 4. Product Explanation Section --- */
-        .product-section {
-            background: radial-gradient(circle at top, rgba(53, 251, 214, 0.08), transparent 50%), var(--bg-secondary);
-        }
-        
-        .product-level {
-            margin-bottom: 3rem;
-            border: 1px solid rgba(255, 255, 255, 0.12);
+        .stat-label {
+            font-size: 1.1rem;
+            color: var(--text-gray);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
         }
 
-        .product-level:last-child {
-            margin-bottom: 0;
-        }
-
-        .product-level ul {
-            list-style: none;
-            padding-left: 0;
-        }
-
-        .product-level li {
-            margin-bottom: 1.5rem;
-            color: var(--text-secondary);
-            display: flex;
-            align-items: flex-start;
-            gap: 15px;
-        }
-        
-        .product-level li strong {
-            color: var(--text-primary);
-        }
-
-        .level-icon {
-            font-size: 1.5rem;
-            flex-shrink: 0;
-            filter: drop-shadow(0 0 10px rgba(53, 251, 214, 0.35));
-        }
-
-        /* --- 5. Offer & Pricing Section --- */
-        .pricing-section {
-            background: linear-gradient(160deg, #06070c 0%, #0d111d 70%, #050607 100%);
-        }
-
+        /* Pricing Cards */
         .pricing-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-bottom: 4rem;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+            margin: 4rem 0;
         }
 
         .pricing-card {
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(12px);
-        }
-        
-        .pricing-card.pro {
-            border: 2px solid transparent;
-            background-image: linear-gradient(var(--bg-card), var(--bg-card)), linear-gradient(120deg, var(--accent-neon), var(--accent-sun), var(--accent-warm));
-            background-origin: border-box;
-            background-clip: padding-box, border-box;
-            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+            background: linear-gradient(135deg, rgba(10, 14, 26, 0.8), rgba(5, 8, 16, 0.9));
+            border: 2px solid rgba(0, 217, 255, 0.3);
+            border-radius: 40px;
+            padding: 3rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
         }
 
-        .price-tag {
-            font-size: 2.2rem;
-            font-weight: 800;
-            margin: 1.5rem 0;
-            color: var(--text-primary);
+        .pricing-card.featured {
+            border-color: var(--neon-pink);
+            box-shadow: 0 0 60px rgba(255, 0, 128, 0.4);
+            transform: scale(1.05);
         }
-        
+
+        .pricing-card.featured::before {
+            content: 'ЛУЧШИЙ ВЫБОР';
+            position: absolute;
+            top: 2rem;
+            right: -2rem;
+            background: linear-gradient(135deg, var(--neon-pink), var(--power-purple));
+            color: white;
+            padding: 0.5rem 3rem;
+            transform: rotate(45deg);
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px) scale(1.02);
+        }
+
+        .pricing-card h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .price {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin: 2rem 0;
+            background: linear-gradient(135deg, var(--electric-blue), var(--energy-yellow));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
         .price-note {
             font-size: 0.9rem;
-            color: var(--text-secondary);
-            font-weight: 400;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
+            color: var(--text-gray);
+            display: block;
+            margin-top: 0.5rem;
         }
 
-        .pricing-features {
+        .features-list {
             list-style: none;
-            margin-bottom: 2rem;
-            flex-grow: 1;
+            margin: 2rem 0;
         }
 
-        .pricing-features li {
-            margin-bottom: 1rem;
+        .features-list li {
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             display: flex;
             align-items: center;
-            gap: 12px;
-            color: var(--text-secondary);
-        }
-        
-        .calculator-block {
-            background: rgba(8, 11, 18, 0.9);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 28px;
-            padding: 3rem;
-            text-align: center;
-            max-width: 860px;
-            margin: 0 auto;
-            box-shadow: inset 0 0 40px rgba(53, 251, 214, 0.05);
-        }
-        
-        .calc-row {
-            display: flex;
-            justify-content: space-around;
-            margin: 2rem 0;
-            flex-wrap: wrap;
             gap: 1rem;
         }
-        
-        .calc-item {
-             font-size: 1.2rem;
-             text-transform: uppercase;
-             letter-spacing: 0.08em;
-        }
-        
-        .calc-result {
-            font-size: 1.6rem;
-            font-weight: 800;
-            color: var(--accent-neon);
+
+        .features-list li::before {
+            content: '✓';
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            background: var(--electric-blue);
+            color: var(--bg-dark);
+            border-radius: 50%;
+            font-weight: 900;
+            flex-shrink: 0;
         }
 
-        /* --- Final CTA --- */
-        .final-cta {
-            text-align: center;
-            background: linear-gradient(180deg, rgba(8, 10, 16, 0.95) 0%, rgba(5, 6, 7, 1) 100%);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .final-cta::before {
-            content: "";
-            position: absolute;
-            width: 400px;
-            height: 400px;
-            background: var(--accent-neon);
-            filter: blur(120px);
-            opacity: 0.25;
-            top: -10%;
-            left: 10%;
-        }
-
+        /* Form Styles */
         .lead-form {
-            max-width: 520px;
-            margin: 3rem auto 0;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
+            max-width: 600px;
+            margin: 4rem auto 0;
+            background: rgba(10, 14, 26, 0.8);
+            border: 2px solid rgba(0, 217, 255, 0.3);
+            border-radius: 30px;
+            padding: 3rem;
         }
 
-        .input-field {
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-input {
             width: 100%;
-            padding: 1.05rem 1.2rem;
-            background-color: rgba(14, 20, 32, 0.85);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 16px;
-            color: var(--text-primary);
+            padding: 1.2rem 1.5rem;
+            background: rgba(0, 217, 255, 0.05);
+            border: 2px solid rgba(0, 217, 255, 0.2);
+            border-radius: 15px;
+            color: var(--text-white);
             font-size: 1rem;
-            font-family: 'Space Grotesk', sans-serif;
+            font-family: 'Golos Text', sans-serif;
+            transition: all 0.3s ease;
         }
-        
-        .input-field:focus {
+
+        .form-input:focus {
             outline: none;
-            border-color: var(--accent-neon);
-            box-shadow: 0 0 0 3px rgba(53, 251, 214, 0.2);
-        }
-        
-        .form-note {
-             margin-top: 1rem;
-             font-size: 0.9rem;
-             color: var(--text-secondary);
-             letter-spacing: 0.08em;
-             text-transform: uppercase;
+            border-color: var(--electric-blue);
+            box-shadow: 0 0 20px rgba(0, 217, 255, 0.3);
+            background: rgba(0, 217, 255, 0.1);
         }
 
-        .bot-screenshot-wrapper {
-            position: relative;
-            max-width: 360px;
+        .form-input::placeholder {
+            color: var(--text-gray);
+        }
+
+        .submit-btn {
             width: 100%;
-            border-radius: 32px;
-            overflow: hidden;
-            filter: drop-shadow(0 25px 50px rgba(53, 251, 214, 0.25));
-            transition: transform 0.4s ease;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, var(--electric-blue), var(--neon-pink));
+            border: none;
+            border-radius: 15px;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
         }
 
-        .bot-screenshot-wrapper:hover {
-            transform: translateY(-8px) scale(1.02);
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 40px rgba(0, 217, 255, 0.4);
         }
 
-        .bot-screenshot-wrapper img {
-            width: 100%;
-            height: auto;
-            display: block;
-            border-radius: 32px;
-            margin-top: -40px;
-        }
-
-        /* --- Адаптивность --- */
+        /* Responsive */
         @media (max-width: 968px) {
             .hero-content {
                 grid-template-columns: 1fr;
                 text-align: center;
             }
-            .hero-visual {
+
+            .phone-showcase {
                 order: -1;
-                margin-bottom: 2rem;
+                margin-bottom: 3rem;
             }
-            h1 { font-size: clamp(2.2rem, 8vw, 3rem); }
-            .cta-subtext { letter-spacing: 0.1em; }
-        }
-        @media (max-width: 600px) {
-            .calc-row {
-                flex-direction: column;
+
+            .card-grid,
+            .pricing-grid {
+                grid-template-columns: 1fr;
             }
-            .card {
-                padding: 2rem;
+
+            .pricing-card.featured {
+                transform: scale(1);
             }
         }
 
+        /* Scroll Reveal Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
     </style>
 </head>
 <body>
 
+    <div class="animated-bg"></div>
+
+    <!-- Energy Particles -->
+    <div class="energy-particle" style="left: 10%; animation-delay: 0s;"></div>
+    <div class="energy-particle" style="left: 30%; animation-delay: 2s;"></div>
+    <div class="energy-particle" style="left: 50%; animation-delay: 4s;"></div>
+    <div class="energy-particle" style="left: 70%; animation-delay: 6s;"></div>
+    <div class="energy-particle" style="left: 90%; animation-delay: 8s;"></div>
+
+    <!-- Hero Section -->
     <section class="hero">
         <div class="container hero-content">
             <div class="hero-text">
-                <h1>Превращаем хаос на рецепции в системные продажи.</h1>
-                <h2><span class="highlight">FitBot</span> — операционная система для фитнес-клуба в Telegram, которая обнуляет расходы на SMS, забирает 100% рутины и работает как AI-помощник 24/7.</h2>
-                <a href="#final-cta" class="btn">🚀 Рассчитать экономию для моего клуба</a>
-                <span class="cta-subtext">Окупается с первого месяца только на отмене SMS-рассылок</span>
+                <h1>Превращаем хаос на рецепции в системные продажи</h1>
+                <h2><span class="highlight">FitBot</span> — операционная система для фитнес-клуба в Telegram, которая обнуляет расходы на SMS, забирает 100% рутины и работает как AI-помощник 24/7</h2>
+                <a href="#final-cta" class="cta-btn">
+                    <span style="position: relative; z-index: 1;">🚀 Рассчитать экономию</span>
+                </a>
+                <span class="cta-subtext">Окупается с первого месяца</span>
             </div>
-            <div class="hero-visual">
-                <div class="bot-screenshot-wrapper">
+            <div class="phone-showcase">
+                <div class="glow-ring"></div>
+                <div class="phone-3d">
                     <%= image_tag "bot_screenshot.png", alt: "FitBot Assistant Interface" %>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="pain-section">
+    <!-- Pain Points Section -->
+    <section>
         <div class="container">
-            <div class="section-header">
+            <div class="section-header reveal">
                 <h2>Узнаете себя в "Час Пик" (18:00–20:00)?</h2>
-                <p>Если у вас сеть из 2-3 клубов, вы наверняка теряете деньги в этих трех «черных дырах»:</p>
+                <p>Если у вас сеть из 2-3 клубов, вы наверняка теряете деньги в этих трех «черных дырах»</p>
             </div>
-            <div class="pain-grid">
-                <div class="card pain-card">
-                    <h3>🔥 «Администратор в огне»</h3>
+            <div class="card-grid">
+                <div class="card reveal">
+                    <div class="card-icon">🔥</div>
+                    <h3>«Администратор в огне»</h3>
                     <p>Вечер. На рецепции очередь. Админ одной рукой выдает ключи, другой отвечает на звонок «А бассейн работает?», третьей пытается пробить воду.</p>
-                    <div class="result-negative">❌ Результат: Продажи стоят. Никто не звонит «потеряшкам». Сервис на нуле.</div>
+                    <span class="benefit-result">❌ Продажи стоят. Сервис на нуле</span>
                 </div>
-                <div class="card pain-card">
-                    <h3>💸 «Деньги на ветер»</h3>
-                    <p>Вы платите 15 000 ₽ в месяц за SMS-рассылки. Честно: кто их читает? А ваше мобильное приложение за 300к+ рублей клиенты удаляют через неделю, чтобы освободить память.</p>
-                    <div class="result-negative">❌ Результат: Вы платите за воздух. У вас нет надежного канала связи с клиентом.</div>
+                <div class="card reveal">
+                    <div class="card-icon">💸</div>
+                    <h3>«Деньги на ветер»</h3>
+                    <p>Вы платите 15 000 ₽ в месяц за SMS-рассылки. Честно: кто их читает? А ваше мобильное приложение за 300к+ клиенты удаляют через неделю.</p>
+                    <span class="benefit-result">❌ Вы платите за воздух</span>
                 </div>
-                <div class="card pain-card">
-                    <h3>🚪 «Тихий уход»</h3>
-                    <p>В душевой сломан крючок. В зале душно. Клиент не хочет скандалить на рецепции, он просто молча не продлевает абонемент и уходит к «Федералам» (DDX, World Class), где сервис вылизан.</p>
-                    <div class="result-negative">❌ Результат: Вы теряете LTV и даже не знаете почему.</div>
+                <div class="card reveal">
+                    <div class="card-icon">🚪</div>
+                    <h3>«Тихий уход»</h3>
+                    <p>Клиент не хочет скандалить на рецепции, он просто молча не продлевает абонемент и уходит к «Федералам», где сервис вылизан.</p>
+                    <span class="benefit-result">❌ Теряете LTV</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="benefits-section">
+    <!-- Benefits Section -->
+    <section style="background: linear-gradient(135deg, rgba(157, 78, 221, 0.05), transparent);">
         <div class="container">
-            <div class="section-header">
-                <h2>FitBot меняет правила игры. <br>Вы получаете сервис Федеральной сети по цене обеда.</h2>
+            <div class="section-header reveal">
+                <h2>FitBot меняет правила игры</h2>
+                <p>Вы получаете сервис Федеральной сети по цене обеда</p>
             </div>
-            <div class="benefits-grid">
-                <div class="card benefit-card">
-                    <h3>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="check-icon"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                        Экономия с первого дня
-                    </h3>
-                    <p>Мы полностью заменяем SMS-рассылки и пуши. Бот живет в Telegram — это канал, который клиент <em>не может удалить</em>, потому что там его пропуск и кошелек.</p>
-                    <span class="benefit-result">Ваша выгода: +15 000 ₽ в кассе каждый месяц.</span>
+
+            <div class="stats-grid">
+                <div class="stat-item reveal">
+                    <span class="stat-number" data-count="15000">0</span>
+                    <span class="stat-label">₽ Экономия / месяц</span>
                 </div>
-                <div class="card benefit-card">
-                    <h3>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="check-icon"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                        Админ теперь Продает, а не Пикает
-                    </h3>
-                    <p>Бот берет на себя вход, оплату, расписание и ответы на вопросы. Администратор освобождает 40% времени.</p>
-                    <span class="benefit-result">Ваша выгода: Рост продаж абонементов и доп. услуг за счет живого общения.</span>
+                <div class="stat-item reveal">
+                    <span class="stat-number" data-count="90">0</span>
+                    <span class="stat-label">% Рутины забирает бот</span>
                 </div>
-                <div class="card benefit-card">
-                    <h3>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="check-icon"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                        AI-Консьерж 24/7 (Единое окно)
-                    </h3>
+                <div class="stat-item reveal">
+                    <span class="stat-number">24/7</span>
+                    <span class="stat-label">AI-поддержка</span>
+                </div>
+            </div>
+
+            <div class="card-grid">
+                <div class="card reveal">
+                    <div class="card-icon">💰</div>
+                    <h3>Экономия с первого дня</h3>
+                    <p>Заменяем SMS-рассылки полностью. Бот живет в Telegram — это канал, который клиент не может удалить, потому что там его пропуск и кошелек.</p>
+                    <span class="benefit-result">+15 000 ₽ в кассе каждый месяц</span>
+                </div>
+                <div class="card reveal">
+                    <div class="card-icon">⚡</div>
+                    <h3>Админ теперь Продает</h3>
+                    <p>Бот берет на себя вход, оплату, расписание и ответы на вопросы. Администратор освобождает 40% времени для живого общения.</p>
+                    <span class="benefit-result">Рост продаж абонементов</span>
+                </div>
+                <div class="card reveal">
+                    <div class="card-icon">🤖</div>
+                    <h3>AI-Консьерж 24/7</h3>
                     <p>Бот обучен на регламентах вашего клуба. Он ответит на вопрос «Нужна ли шапочка?» в 3 часа ночи. Никаких «висений» на телефоне.</p>
-                    <span class="benefit-result">Ваша выгода: Клиент чувствует заботу уровня Premium.</span>
-                </div>
-                <div class="card benefit-card">
-                    <h3>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="check-icon"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                        Глаза и Уши владельца
-                    </h3>
-                    <p>Клиент видит грязь → фоткает в чат → фото улетает клинингу. Жалоба не теряется, а вы видите реальное состояние дел в клубе.</p>
+                    <span class="benefit-result">Premium сервис</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="product-section">
+    <!-- Pricing Section -->
+    <section>
         <div class="container">
-            <div class="section-header">
-                <h2>FitBot — это не просто чат-бот. Это <span class="highlight">Цифровая Платформа</span>.</h2>
-                <p>Три уровня работы системы:</p>
-            </div>
-            
-            <div class="product-levels">
-                <div class="card product-level">
-                    <h3>1. Для Клиента: "Незаменимый помощник"</h3>
-                    <p>Почему его не удаляют?</p>
-                    <ul>
-                        <li><span class="level-icon">🔑</span> <div><strong>Цифровой Ключ:</strong> Штрих-код/QR для входа через турникет прямо в чате. Пластик больше не нужен.</div></li>
-                        <li><span class="level-icon">💳</span> <div><strong>Кошелек:</strong> Продление абонемента в 2 клика (Apple Pay / Карты). Бот сам напомнит, когда пора платить.</div></li>
-                        <li><span class="level-icon">📅</span> <div><strong>Ассистент:</strong> Запись на групповые, заморозка карты, проверка баланса.</div></li>
-                    </ul>
-                </div>
-
-                <div class="card product-level">
-                    <h3>2. Для Клуба: "Автопилот продаж"</h3>
-                    <p>Бот интегрирован с вашей CRM (1С:Фитнес и др.). Он видит всё.</p>
-                    <ul>
-                        <li><span class="level-icon">🤖</span> <div><strong>Сценарий "Возврат":</strong> Клиент не был 30 дней? Бот сам напишет: "Привет! Давно не виделись. Твоя беговая дорожка скучает. Приходи сегодня — угостим коктейлем".</div></li>
-                        <li><span class="level-icon">🔥</span> <div><strong>Сценарий "Дожим":</strong> Клиент был на пробном, но не купил? Бот мягко прогреет его цепочкой сообщений и предложит скидку.</div></li>
-                        <li><span class="level-icon">🧠</span> <div><strong>Умная поддержка:</strong> Все вопросы валятся в <em>Единое Окно</em>. Бот отвечает сам по Базе Знаний. Если вопрос сложный — подключает менеджера в этот же диалог.</div></li>
-                    </ul>
-                </div>
-
-                <div class="card product-level" style="border-color: var(--accent-neon);">
-                    <h3>3. Платформа Будущего: "Центр Прибыли" (Самое вкусное для владельца)</h3>
-                    <p>Вы годами собирали базу. Хватит на ней только экономить. Давайте на ней зарабатывать. FitBot позволяет внедрять внешние модули:</p>
-                    <ul>
-                        <li><span class="level-icon">🛒</span> <div>Магазин спортпита и мерча внутри бота.</div></li>
-                        <li><span class="level-icon">🥗</span> <div>Курсы питания и диетологи.</div></li>
-                        <li><span class="level-icon">🏥</span> <div>Партнерские чекапы и анализы.</div></li>
-                    </ul>
-                    <p style="color: var(--text-primary); font-weight: 600;">Вы получаете % с продаж (Revenue Share). Превратите статью расходов на IT в новый источник чистого дохода.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="pricing-section">
-        <div class="container">
-            <div class="section-header">
-                <h2>Стоит дешевле, чем ваши текущие потери на SMS.</h2>
-                <p>Мы проверили цены на рынке. "Бесполезные" CRM и приложения стоят от 40 000 ₽. Мы предлагаем честную модель:</p>
+            <div class="section-header reveal">
+                <h2>Стоит дешевле ваших потерь на SMS</h2>
+                <p>Честная модель. Результат с первого дня.</p>
             </div>
 
             <div class="pricing-grid">
-                <div class="card pricing-card">
-                    <h3>Тариф 🚀 START</h3>
-                    <p>Для тех, кто хочет навести порядок и сэкономить.</p>
-                    <div class="price-tag">от 5 000 ₽ <span class="price-note">/ за клуб в месяц</span></div>
-                    <ul class="pricing-features">
-                        <li><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-neon)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Цифровой пропуск (вход по телефону)</li>
-                        <li><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-neon)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Онлайн-оплата и продление</li>
-                        <li><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-neon)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Умный автоответчик (База знаний)</li>
-                        <li><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-neon)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Актуальное расписание</li>
+                <div class="pricing-card reveal">
+                    <h3>🚀 START</h3>
+                    <p>Для тех, кто хочет навести порядок</p>
+                    <div class="price">5 000 ₽<span class="price-note">/ за клуб в месяц</span></div>
+                    <ul class="features-list">
+                        <li>Цифровой пропуск</li>
+                        <li>Онлайн-оплата</li>
+                        <li>Умный автоответчик</li>
+                        <li>Актуальное расписание</li>
                     </ul>
                 </div>
 
-                <div class="card pricing-card pro">
-                    <h3>Тариф 🔥 PRO</h3>
-                    <p>Для тех, кто хочет расти и управлять маркетингом.</p>
-                    <div class="price-tag">START + 10 000 ₽ <span class="price-note">/ за всю сеть</span></div>
-                    <ul class="pricing-features">
-                        <li><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Всё из Start</li>
-                        <li><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Прямые рассылки в Telegram (вместо SMS)</li>
-                        <li><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> "Тихая" нативная реклама акций</li>
-                        <li><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Расширенная аналитика и AI-сценарии</li>
+                <div class="pricing-card featured reveal">
+                    <h3>🔥 PRO</h3>
+                    <p>Для тех, кто хочет расти</p>
+                    <div class="price">START + 10K<span class="price-note">/ за всю сеть</span></div>
+                    <ul class="features-list">
+                        <li>Всё из Start</li>
+                        <li>Прямые рассылки в Telegram</li>
+                        <li>Нативная реклама акций</li>
+                        <li>Расширенная аналитика</li>
+                        <li>AI-сценарии возврата клиентов</li>
                     </ul>
-                </div>
-            </div>
-            <p style="text-align: center; color: var(--text-secondary); margin-bottom: 3rem;">(Разовая интеграция с вашей 1С: 15 000 ₽ / клуб)</p>
-
-            <div class="calculator-block">
-                <h3>Калькулятор в уме</h3>
-                <div class="calc-row">
-                    <div class="calc-item" style="color: var(--accent-warm);">📉 Без FitBot: Тратите 15 000 ₽ на SMS + теряете клиентов.</div>
-                    <div class="calc-item" style="color: var(--accent-neon);">📈 С FitBot: Платите 5 000 ₽ за сервис.</div>
-                </div>
-                <div class="calc-result">
-                    ИТОГ: Вы не тратите деньги. Вы экономите 10 000 ₽ чистыми уже в первый месяц.
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="final-cta" id="final-cta">
+    <!-- Final CTA -->
+    <section id="final-cta" style="background: radial-gradient(circle at top, rgba(0, 217, 255, 0.1), transparent 50%);">
         <div class="container">
-            <div class="section-header">
-                <h2>Готовы превратить "качалку" в цифровую экосистему?</h2>
+            <div class="section-header reveal">
+                <h2>Готовы превратить качалку в цифровую экосистему?</h2>
                 <p>Не ждите, пока к вам в город придут Федералы. Опередите их по сервису уже сегодня.</p>
             </div>
-            
-            <form class="lead-form">
-                <input type="text" placeholder="Ваше Имя" class="input-field" required>
-                <input type="tel" placeholder="Ваш Телефон" class="input-field" required>
-                <input type="number" placeholder="Количество клубов в сети" class="input-field" required>
-                <button type="submit" class="btn btn-full">Получить демо и расчет экономии</button>
+
+            <form class="lead-form reveal">
+                <div class="form-group">
+                    <input type="text" class="form-input" placeholder="Ваше Имя" required>
+                </div>
+                <div class="form-group">
+                    <input type="tel" class="form-input" placeholder="Ваш Телефон" required>
+                </div>
+                <div class="form-group">
+                    <input type="number" class="form-input" placeholder="Количество клубов в сети" required>
+                </div>
+                <button type="submit" class="submit-btn">Получить демо</button>
             </form>
-            <p class="form-note">Интеграция занимает 3 дня. Работаем по всей РФ и СНГ</p>
+            <p style="text-align: center; margin-top: 2rem; color: var(--text-gray);">Интеграция занимает 3 дня. Работаем по всей РФ и СНГ</p>
         </div>
     </section>
+
+    <script>
+        // Scroll Reveal Animation
+        const reveals = document.querySelectorAll('.reveal');
+
+        const revealOnScroll = () => {
+            reveals.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('active');
+                }
+            });
+        };
+
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll();
+
+        // Animated Counter
+        const counters = document.querySelectorAll('.stat-number[data-count]');
+
+        const animateCounter = (counter) => {
+            const target = parseInt(counter.getAttribute('data-count'));
+            const duration = 2000;
+            const step = target / (duration / 16);
+            let current = 0;
+
+            const updateCounter = () => {
+                current += step;
+                if (current < target) {
+                    counter.textContent = Math.floor(current).toLocaleString('ru-RU');
+                    requestAnimationFrame(updateCounter);
+                } else {
+                    counter.textContent = target.toLocaleString('ru-RU');
+                }
+            };
+
+            updateCounter();
+        };
+
+        const observerOptions = {
+            threshold: 0.5,
+            rootMargin: '0px'
+        };
+
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !entry.target.classList.contains('counted')) {
+                    animateCounter(entry.target);
+                    entry.target.classList.add('counted');
+                }
+            });
+        }, observerOptions);
+
+        counters.forEach(counter => counterObserver.observe(counter));
+
+        // Form Submission
+        document.querySelector('.lead-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Спасибо! Мы свяжемся с вами в течение 1 часа! 🚀');
+        });
+    </script>
 
 </body>
 </html>

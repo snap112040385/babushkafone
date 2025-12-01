@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generate Bot Panel</title>
+</head>
+<body>
+    <canvas id="canvas" width="396" height="494"></canvas>
+    <a id="download" style="display: block; margin-top: 20px; padding: 20px; background: #007bff; color: white; text-decoration: none; text-align: center; border-radius: 8px;">Скачать баннер</a>
+
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+
+        // Background gradient
+        const bgGradient = ctx.createLinearGradient(0, 0, 396, 494);
+        bgGradient.addColorStop(0, '#1a1f35');
+        bgGradient.addColorStop(1, '#0f1422');
+
+        // Draw rounded rectangle background
+        ctx.fillStyle = bgGradient;
+        roundRect(ctx, 0, 0, 396, 494, 32);
+        ctx.fill();
+
+        // Add glowing orbs
+        const orbGradient1 = ctx.createRadialGradient(316, 49, 0, 316, 49, 120);
+        orbGradient1.addColorStop(0, 'rgba(0, 217, 255, 0.25)');
+        orbGradient1.addColorStop(1, 'rgba(0, 217, 255, 0)');
+        ctx.fillStyle = orbGradient1;
+        ctx.beginPath();
+        ctx.arc(316, 49, 120, 0, Math.PI * 2);
+        ctx.fill();
+
+        const orbGradient2 = ctx.createRadialGradient(80, 394, 0, 80, 394, 100);
+        orbGradient2.addColorStop(0, 'rgba(157, 78, 221, 0.25)');
+        orbGradient2.addColorStop(1, 'rgba(157, 78, 221, 0)');
+        ctx.fillStyle = orbGradient2;
+        ctx.beginPath();
+        ctx.arc(80, 394, 100, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Title
+        ctx.fillStyle = '#ffffff';
+        ctx.font = '700 26px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('FitBot Assistant', 198, 55);
+
+        // Menu items
+        const menuItems = [
+            { text: 'ОТКРЫТЬ ТУРНИКЕТ', icon: '🎫', y: 130, primary: true },
+            { text: 'РАСПИСАНИЕ ЗАНЯТИЙ', icon: '📅', y: 212, color: '#5ffbcd' },
+            { text: 'ПРОДЛИТЬ АБОНЕМЕНТ', icon: '💳', y: 294, color: '#5ffbcd' },
+            { text: 'ЗАДАТЬ ВОПРОС (AI)', icon: '🤖', y: 376, color: '#ff0080' }
+        ];
+
+        menuItems.forEach(item => {
+            if (item.primary) {
+                // Primary button with gradient
+                const primaryGradient = ctx.createLinearGradient(24, item.y - 30, 372, item.y + 30);
+                primaryGradient.addColorStop(0, '#5ffbcd');
+                primaryGradient.addColorStop(1, '#ffed4e');
+                ctx.fillStyle = primaryGradient;
+                roundRect(ctx, 24, item.y - 30, 348, 60, 20);
+                ctx.fill();
+
+                // Primary text (dark)
+                ctx.fillStyle = '#0a0e1a';
+                ctx.font = '700 16px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+                ctx.textAlign = 'left';
+                ctx.fillText(item.icon + '  ' + item.text, 46, item.y + 5);
+            } else {
+                // Regular button
+                ctx.fillStyle = 'rgba(20, 25, 40, 0.6)';
+                roundRect(ctx, 24, item.y - 30, 348, 60, 20);
+                ctx.fill();
+
+                // Border
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.08)';
+                ctx.lineWidth = 1;
+                roundRect(ctx, 24, item.y - 30, 348, 60, 20);
+                ctx.stroke();
+
+                // Icon
+                ctx.font = '22px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+                ctx.fillText(item.icon, 46, item.y + 8);
+
+                // Text with gradient
+                const textGradient = ctx.createLinearGradient(70, item.y, 372, item.y);
+                if (item.color === '#5ffbcd') {
+                    textGradient.addColorStop(0, '#5ffbcd');
+                    textGradient.addColorStop(1, '#00d9ff');
+                } else {
+                    textGradient.addColorStop(0, '#ff0080');
+                    textGradient.addColorStop(1, '#9d4edd');
+                }
+                ctx.fillStyle = textGradient;
+                ctx.font = '600 16px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+                ctx.fillText(item.text, 82, item.y + 5);
+            }
+        });
+
+        // Setup download
+        const downloadLink = document.getElementById('download');
+        canvas.toBlob(blob => {
+            const url = URL.createObjectURL(blob);
+            downloadLink.href = url;
+            downloadLink.download = 'ботпанель.png';
+        });
+
+        function roundRect(ctx, x, y, width, height, radius) {
+            ctx.beginPath();
+            ctx.moveTo(x + radius, y);
+            ctx.lineTo(x + width - radius, y);
+            ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+            ctx.lineTo(x + width, y + height - radius);
+            ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+            ctx.lineTo(x + radius, y + height);
+            ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+            ctx.lineTo(x, y + radius);
+            ctx.quadraticCurveTo(x, y, x + radius, y);
+            ctx.closePath();
+        }
+    </script>
+</body>
+</html>
