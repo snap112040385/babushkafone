@@ -1,4 +1,14 @@
-You can reset your password on
-<%= edit_password_url(@user.password_reset_token) %>
+Здравствуйте!
 
-This link will expire in <%= distance_of_time_in_words(0, @user.password_reset_token_expires_in) %>.
+Вы запросили восстановление пароля на сайте Babushkafone.
+
+Чтобы сбросить пароль, перейдите по следующей ссылке:
+<%= @reset_url %>
+
+Эта ссылка действительна в течение 2 часов.
+
+Если вы не запрашивали восстановление пароля, просто проигнорируйте это письмо.
+Ваш пароль не будет изменен, пока вы не перейдете по ссылке выше и не создадите новый.
+
+С уважением,
+Команда Babushkafone

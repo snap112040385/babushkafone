@@ -6,4 +6,6 @@ class User < ApplicationRecord
 
   validates :email_address, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :password, length: { minimum: 8 }, if: :password_digest_changed?
+
+  generates_token_for :password_reset, expires_in: 2.hours
 end

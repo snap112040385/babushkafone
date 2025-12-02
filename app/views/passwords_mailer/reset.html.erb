@@ -1,6 +1,38 @@
-<p>
-  You can reset your password on
-  <%= link_to "this password reset page", edit_password_url(@user.password_reset_token) %>.
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+    .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+    .button { display: inline-block; padding: 12px 24px; background-color: #4F46E5; color: white; text-decoration: none; border-radius: 6px; margin: 20px 0; }
+    .footer { margin-top: 30px; font-size: 12px; color: #666; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Восстановление пароля</h1>
 
-  This link will expire in <%= distance_of_time_in_words(0, @user.password_reset_token_expires_in) %>.
-</p>
+    <p>Здравствуйте!</p>
+
+    <p>Вы запросили восстановление пароля на сайте Babushkafone.</p>
+
+    <p>Чтобы сбросить пароль, нажмите на кнопку ниже:</p>
+
+    <p>
+      <a href="<%= @reset_url %>" class="button">Сбросить пароль</a>
+    </p>
+
+    <p>Или скопируйте эту ссылку в адресную строку браузера:</p>
+    <p><%= @reset_url %></p>
+
+    <p class="footer">
+      Эта ссылка действительна в течение 2 часов.<br>
+      Если вы не запрашивали восстановление пароля, просто проигнорируйте это письмо.<br>
+      <br>
+      С уважением,<br>
+      Команда Babushkafone
+    </p>
+  </div>
+</body>
+</html>
