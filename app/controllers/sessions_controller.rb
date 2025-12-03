@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
   def create
     if user = User.authenticate_by(params.permit(:email_address, :password))
       unless user.confirmed?
-        flash[:alert] = "Пожалуйста, подтвердите ваш email перед входом. Проверьте почту или <a href='#{new_email_confirmation_path}' class='underline hover:no-underline'>запросите новое письмо подтверждения</a>.".html_safe
+        flash[:alert] = :unconfirmed_email
         redirect_to new_session_path
         return
       end
