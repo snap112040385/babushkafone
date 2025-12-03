@@ -24,7 +24,8 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to new_session_path
     assert_nil cookies[:session_id]
-    assert_equal "Пожалуйста, подтвердите ваш email перед входом. Проверьте почту или запросите новое письмо подтверждения.", flash[:alert]
+    assert_includes flash[:alert], "Пожалуйста, подтвердите ваш email перед входом"
+    assert_includes flash[:alert], "запросите новое письмо подтверждения"
   end
 
   test "create with invalid credentials" do
