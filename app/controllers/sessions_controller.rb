@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
   def create
     if user = User.authenticate_by(params.permit(:email_address, :password))
       unless user.confirmed?
-        flash[:alert] = :unconfirmed_email
+        flash[:unconfirmed_email] = true
         redirect_to new_session_path
         return
       end

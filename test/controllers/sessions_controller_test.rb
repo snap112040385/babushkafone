@@ -24,7 +24,7 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to new_session_path
     assert_nil cookies[:session_id]
-    assert_equal :unconfirmed_email, flash[:alert]
+    assert flash[:unconfirmed_email]
   end
 
   test "create with invalid credentials" do
