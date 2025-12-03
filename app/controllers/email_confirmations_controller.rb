@@ -37,8 +37,18 @@ class EmailConfirmationsController < ApplicationController
 
   private
     def set_user_by_token
+      Rails.logger.info "Attempting email confirmation with token: #{params[:token]&.first(50)}..."
       @user = User.find_by_token_for!(:email_confirmation, params[:token])
-    rescue ActiveSupport::MessageVerifier::InvalidSignature
+      Rails.logger.info "Successfully found user: #{@user.email_address}"
+    rescue ActiveSupport::MessageVerifier::InvalidSignature => e
+      Rails.logger.error "Invalid token signature: #{e.message}"
+      redirect_to new_session_path, alert: "Ссылка для подтверждения email недействительна или устарела."
+    rescue ActiveRecord::RecordNotFound => e
+      Rails.logger.error "User not found or token expired: #{e.message}"
+      redirect_to new_session_path, alert: "Ссылка для подтверждения email недействительна или устарела."
+    rescue => e
+      Rails.logger.error "Unexpected error during email confirmation: #{e.class} - #{e.message}"
+      Rails.logger.error e.backtrace.first(5).join("\n")
       redirect_to new_session_path, alert: "Ссылка для подтверждения email недействительна или устарела."
     end
 end
