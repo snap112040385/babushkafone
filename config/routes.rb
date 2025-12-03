@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resource :session
   resources :passwords, param: :token
   resource :registration, only: %i[ new create ]
+  resource :email_confirmation, only: %i[ new create edit ], param: :token
 
   # Dashboard (protected)
   get "dashboard", to: "dashboard#index"

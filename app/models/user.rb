@@ -8,4 +8,16 @@ class User < ApplicationRecord
   validates :password, length: { minimum: 8 }, if: :password_digest_changed?
 
   generates_token_for :password_reset, expires_in: 2.hours
+  generates_token_for :email_confirmation, expires_in: 24.hours
+
+  scope :confirmed, -> { where(email_confirmed: true) }
+  scope :unconfirmed, -> { where(email_confirmed: false) }
+
+  def confirm_email!
+    update!(email_confirmed: true, email_confirmed_at: Time.current)
+  end
+
+  def confirmed?
+    email_confirmed
+  end
 end
