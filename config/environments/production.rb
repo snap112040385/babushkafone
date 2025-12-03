@@ -64,7 +64,7 @@ Rails.application.configure do
     domain: Rails.application.credentials.dig(:smtp, :domain),
     user_name: Rails.application.credentials.dig(:smtp, :user_name),
     password: Rails.application.credentials.dig(:smtp, :password),
-    authentication: :plain,
+    authentication: :login,
     enable_starttls_auto: true,
     open_timeout: 30,
     read_timeout: 30
