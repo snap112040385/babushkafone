@@ -10,10 +10,17 @@ class PasswordsController < ApplicationController
     if user = User.find_by(email_address: params[:email_address])
       # В production используется deliver_later для асинхронной отправки
       # В development deliver_now для немедленной отправки и отладки
-      if Rails.env.production?
-        PasswordsMailer.reset(user).deliver_later
-      else
-        PasswordsMailer.reset(user).deliver_now
+      begin
+        if Rails.env.production?
+          Rails.logger.info "Отправка письма восстановления пароля для #{user.email_address}"
+          PasswordsMailer.reset(user).deliver_later
+          Rails.logger.info "Письмо добавлено в очередь Solid Queue"
+        else
+          PasswordsMailer.reset(user).deliver_now
+        end
+      rescue => e
+        Rails.logger.error "Ошибка при отправке письма: #{e.message}"
+        Rails.logger.error e.backtrace.join("\n")
       end
     end
 
